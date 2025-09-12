@@ -2,144 +2,74 @@
 <html lang="zh-CN">
 <head>
    <meta charset="utf-8">
-   <title> 我们的爱情故事</title>
-   <meta name="keywords" content="我们的爱情故事">
-   <meta name="description" content="记录我们的美好时光">
+   <title>傻傻 & 乖乖 - 我们的爱情故事</title>
+   <meta name="keywords" content="爱情故事, 余星星, 朱智强, 情侣网站">
+   <meta name="description" content="记录余星星和朱智强的美好爱情时光">
    <meta name="viewport" content="width=device-width, initial-scale=1">
-   <link href="static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
-   <link href="static/css/base.css" rel="stylesheet" type="text/css" media="all">
-   <link href="static/css/main.css" rel="stylesheet" type="text/css" media="all">
-   <link href="static/css/venobox.css" rel="stylesheet" type="text/css" media="all">
-   <link href="static/css/fonts.css" rel="stylesheet" type="text/css" media="all">
-   <link href="static/css/ae168344b8194b348b667f19ac4d1956.css" rel="stylesheet">
+   <!-- 合并CSS文件 -->
+   <link href="static/css/style.min.css" rel="stylesheet">
    <link rel="icon" href="./favicon2.ico">
    <style>
-      /* 新增优化样式 */
-      .lazy-load {
+   /* 添加自定义动画和样式 */
+   .love-text-typing {
+      display: inline-block;
+      overflow: hidden;
+      border-right: .15em solid #e5214a;
+      white-space: nowrap;
+      animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+   }
+   
+   @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+   }
+   
+   @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: #e5214a; }
+   }
+   
+   .floating-hearts {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 1;
+   }
+   
+   .heart {
+      position: absolute;
+      color: rgba(229, 33, 74, 0.7);
+      font-size: 20px;
+      opacity: 0;
+      animation: float 6s ease-in infinite;
+   }
+   
+   @keyframes float {
+      0% {
+         transform: translateY(0) rotate(0deg);
          opacity: 0;
-         transition: opacity 0.3s;
       }
-      
-      .lazy-loaded {
+      50% {
          opacity: 1;
       }
-      
-      .music-player {
-         position: fixed;
-         bottom: 20px;
-         right: 20px;
-         z-index: 1000;
-         width: 40px;
-         height: 40px;
-         border-radius: 50%;
-         background: rgba(255, 255, 255, 0.8);
-         display: flex;
-         align-items: center;
-         justify-content: center;
-         cursor: pointer;
-         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-         transition: all 0.3s ease;
-      }
-      
-      .music-player:hover {
-         transform: scale(1.1);
-         background: rgba(255, 255, 255, 1);
-      }
-      
-      .music-player.rotate {
-         animation: rotate 4s linear infinite;
-      }
-      
-      @keyframes rotate {
-         from { transform: rotate(0deg); }
-         to { transform: rotate(360deg); }
-      }
-      
-      .progress-ring {
-         position: absolute;
-         top: 0;
-         left: 0;
-         width: 100%;
-         height: 100%;
-      }
-      
-      .progress-ring__circle {
-         transition: stroke-dashoffset 0.5s;
-         transform: rotate(-90deg);
-         transform-origin: 50% 50%;
-      }
-      
-      .scroll-top {
-         position: fixed;
-         bottom: 70px;
-         right: 20px;
-         z-index: 999;
-         width: 40px;
-         height: 40px;
-         border-radius: 50%;
-         background: rgba(255, 255, 255, 0.8);
-         display: flex;
-         align-items: center;
-         justify-content: center;
-         cursor: pointer;
+      100% {
+         transform: translateY(-100px) rotate(360deg);
          opacity: 0;
-         visibility: hidden;
-         transition: all 0.3s ease;
-         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
       }
-      
-      .scroll-top.visible {
-         opacity: 1;
-         visibility: visible;
+   }
+   
+   /* 响应式调整 */
+   @media (max-width: 768px) {
+      .hero h1.large {
+         font-size: 2.5rem;
       }
-      
-      .scroll-top:hover {
-         transform: translateY(-5px);
-         background: rgba(255, 255, 255, 1);
+      .block-date-hero ul li {
+         font-size: 1.2rem;
       }
-      
-      .heart-beat {
-         animation: heartBeat 1.5s ease-in-out infinite;
-      }
-      
-      @keyframes heartBeat {
-         0% { transform: scale(1); }
-         15% { transform: scale(1.2); }
-         30% { transform: scale(1); }
-         45% { transform: scale(1.2); }
-         60% { transform: scale(1); }
-      }
-      
-      .fade-in {
-         opacity: 0;
-         transform: translateY(20px);
-         transition: opacity 0.8s ease, transform 0.8s ease;
-      }
-      
-      .fade-in.visible {
-         opacity: 1;
-         transform: translateY(0);
-      }
-      
-      @media (max-width: 768px) {
-         .music-player {
-            bottom: 70px;
-            right: 15px;
-         }
-         
-         .scroll-top {
-            bottom: 120px;
-            right: 15px;
-         }
-         
-         .block-date-hero ul li {
-            font-size: 18px;
-         }
-         
-         h1.large.mb-20 {
-            font-size: 32px;
-         }
-      }
+   }
    </style>
 </head>
 <body>
@@ -151,18 +81,22 @@
       </div>
    </div>
    
-   <!-- 音乐播放器 -->
+   <!-- 音乐播放器改进 -->
    <div class="music-player" id="music-player">
       <svg class="progress-ring" width="40" height="40">
         <circle class="progress-ring__circle" stroke="#e5214a" stroke-width="2" fill="transparent" r="18" cx="20" cy="20"/>
       </svg>
       <i class="icon-music" style="font-size: 20px; color: #e5214a;"></i>
+      <div class="music-title">我们的歌</div>
    </div>
    
    <!-- 返回顶部按钮 -->
    <div class="scroll-top" id="scroll-top">
       <i class="icon-arrow-up" style="font-size: 20px; color: #333;"></i>
    </div>
+   
+   <!-- 漂浮爱心效果 -->
+   <div class="floating-hearts" id="floating-hearts"></div>
    
    <div class="wrapper">
       <section class="hero overlay" id="home">
@@ -172,7 +106,7 @@
          <header class="header default">
             <div class="left-part">
                <a class="logo scroll" href="#home">
-                  <h2>LOVE QIANTING</h2>
+                  <h2>LOVE STORY</h2>
                </a>
             </div>
             <div class="right-part">
@@ -186,6 +120,7 @@
                      <li><a class="scroll" href="#home">爱的首页</a></li>
                      <li><a class="scroll" href="#story">爱的故事</a></li>
                      <li><a class="scroll" href="#album">爱的相册</a></li>
+                     <li><a class="scroll" href="#timeline">时光记忆</a></li>
                   </ul>
                </nav>
             </div>
@@ -194,7 +129,7 @@
             <div class="container hero-content">
                <div class="row">
                   <div class="col-sm-12 text-center">
-                     <h1 class="large mb-20">i love you</h1>
+                     <h1 class="large mb-20 love-text-typing">余生请你指教</h1>
                      <div class="block-date-hero">
                         <div class="circle-dashed bg-n">
                            <div class="round-circle heart-beat">
@@ -206,10 +141,11 @@
                         </div>
                         <ul>
                            <li>余星星</li>
+                           <li class="love-symbol">❤</li>
                            <li>朱智强</li>
                         </ul>
                      </div>
-                     <p class="mt-20 lead"></p>
+                     <p class="mt-20 lead">始于2020年9月12日</p>
                   </div>
                </div>
             </div>
@@ -294,10 +230,8 @@
                <h2 class="indent">Love the date</h2>
                <div class="col-sm-12 text-center">
                   <div class="block-content front-p fade-in">
-                     <h2 class="typo">Love the date</h2>
-                     <span id="elapseClock" class="text-white" style="font-size: 45px;font-weight: 300;">days <span
-                           class="digit">20</span> hours <span class="digit">14</span> minutes <span
-                           class="digit">00</span> seconds</span>
+                     <h2 class="typo">我们已经相爱</h2>
+                     <span id="elapseClock" class="text-white" style="font-size: 45px;font-weight: 300;"></span>
                   </div>
                </div>
             </div>
@@ -453,6 +387,45 @@
          </div>
       </section>
       
+      <!-- 新增时间线部分 -->
+      <section id="timeline" class="timeline-section pt-120 pb-120">
+         <div class="container">
+            <div class="row">
+               <div class="col-sm-12 text-center mb-100 fade-in">
+                  <h1 class="title">时光记忆</h1>
+                  <p>Our Memory Timeline</p>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="timeline">
+                     <div class="timeline-item">
+                        <div class="timeline-date">2020.09.12</div>
+                        <div class="timeline-content">
+                           <h3>初次相遇</h3>
+                           <p>那一天，阳光正好，微风不燥，我们第一次相遇。</p>
+                        </div>
+                     </div>
+                     <div class="timeline-item">
+                        <div class="timeline-date">2020.10.01</div>
+                        <div class="timeline-content">
+                           <h3>第一次约会</h3>
+                           <p>还记得那天我们一起看的那场电影吗？那是我最美好的回忆。</p>
+                        </div>
+                     </div>
+                     <div class="timeline-item">
+                        <div class="timeline-date">2021.02.14</div>
+                        <div class="timeline-content">
+                           <h3>第一个情人节</h3>
+                           <p>我们的第一个情人节，虽然简单但却充满爱意。</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      
       <section class="just-married pt-200 pb-200 overlay">
          <div class="background-img">
             <img src="static/picture/17.jpg" alt="余生是你">
@@ -473,7 +446,7 @@
          <div class="container">
             <div class="row">
                <div class="col-sm-12 text-center">
-                  <p class="uppercase heavy normal">&copy; love. 傻傻 & 乖乖</p>
+                  <p class="uppercase heavy normal">&copy; 2023 love. 傻傻 & 乖乖</p>
                </div>
             </div>
          </div>
@@ -482,184 +455,87 @@
       <audio src="./bgMusic.mp3" loop="loop" id="bgmusic" style="display:none"></audio>
    </div>
    
-   <script src="static/js/jquery-1.12.4.min.js" type="text/javascript"></script>
-   <script src="static/js/jquery.countdown.min.js" type="text/javascript"></script>
-   <script src="static/js/venobox.min.js" type="text/javascript"></script>
-   <script src="static/js/smooth-scroll.js" type="text/javascript"></script>
-   <script src="static/js/script.js" type="text/javascript"></script>
-
+   <!-- 合并JS文件 -->
+   <script src="static/js/app.min.js"></script>
+   
    <script>
-      // 优化后的音乐播放控制
-      (function () {
-         var audioEl = document.getElementById('bgmusic');
-         var musicPlayer = document.getElementById('music-player');
-         var circle = document.querySelector('.progress-ring__circle');
-         var radius = circle.r.baseVal.value;
-         var circumference = 2 * Math.PI * radius;
+   // 自定义JavaScript增强
+   document.addEventListener('DOMContentLoaded', function() {
+      // 创建漂浮爱心
+      function createHearts() {
+         const heartsContainer = document.getElementById('floating-hearts');
+         const heartCount = 15;
          
-         circle.style.strokeDasharray = circumference + ' ' + circumference;
-         circle.style.strokeDashoffset = circumference;
-         
-         function setProgress(percent) {
-            const offset = circumference - (percent / 100) * circumference;
-            circle.style.strokeDashoffset = offset;
+         for (let i = 0; i < heartCount; i++) {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤';
+            heart.classList.add('heart');
+            
+            // 随机位置和动画延迟
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDelay = Math.random() * 5 + 's';
+            heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+            
+            heartsContainer.appendChild(heart);
          }
-         
-         function toggleMusic() {
-            if (audioEl.paused) {
-               audioEl.play().catch(function(e) {
-                  console.log('播放失败:', e);
-               });
-               musicPlayer.classList.add('rotate');
-               setProgress(100);
-            } else {
-               audioEl.pause();
-               musicPlayer.classList.remove('rotate');
-               setProgress(0);
-            }
-         }
-         
-         // 点击音乐播放器控制音乐
-         musicPlayer.addEventListener('click', toggleMusic);
-         
-         // 音频时间更新
-         audioEl.addEventListener('timeupdate', function() {
-            if (audioEl.duration) {
-               var percent = (audioEl.currentTime / audioEl.duration) * 100;
-               setProgress(percent);
-            }
-         });
-         
-         // 音频结束时重置进度
-         audioEl.addEventListener('ended', function() {
-            setProgress(0);
-            musicPlayer.classList.remove('rotate');
-         });
-         
-         // 尝试自动播放（需要用户交互）
-         function tryAutoPlay() {
-            audioEl.play().then(function() {
-               musicPlayer.classList.add('rotate');
-               setProgress(100);
-            }).catch(function(e) {
-               console.log('自动播放被阻止，需要用户交互');
-            });
-         }
-         
-         // 页面加载后尝试自动播放
-         window.addEventListener('load', function() {
-            setTimeout(tryAutoPlay, 1000);
-         });
-         
-         // 用户交互后尝试播放
-         document.addEventListener('click', function() {
-            if (audioEl.paused) {
-               tryAutoPlay();
-            }
-         }, { once: true });
-         
-      })();
+      }
       
-      // 返回顶部功能
-      (function() {
-         var scrollTopBtn = document.getElementById('scroll-top');
+      // 计算相爱时间
+      function calculateLoveTime() {
+         const startDate = new Date('2020-09-12');
+         const currentDate = new Date();
          
-         window.addEventListener('scroll', function() {
-            if (window.pageYOffset > 300) {
-               scrollTopBtn.classList.add('visible');
-            } else {
-               scrollTopBtn.classList.remove('visible');
-            }
-         });
+         const diffTime = Math.abs(currentDate - startDate);
+         const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+         const diffHours = Math.floor((diffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+         const diffMinutes = Math.floor((diffTime % (1000 * 60 * 60)) / (1000 * 60));
+         const diffSeconds = Math.floor((diffTime % (1000 * 60)) / 1000);
          
-         scrollTopBtn.addEventListener('click', function() {
+         document.getElementById('elapseClock').innerHTML = `
+            <span class="digit">${diffDays}</span> 天 
+            <span class="digit">${diffHours}</span> 小时 
+            <span class="digit">${diffMinutes}</span> 分钟 
+            <span class="digit">${diffSeconds}</span> 秒
+         `;
+      }
+      
+      // 初始化
+      createHearts();
+      calculateLoveTime();
+      
+      // 每秒更新一次时间
+      setInterval(calculateLoveTime, 1000);
+      
+      // 音乐播放器功能
+      const musicPlayer = document.getElementById('music-player');
+      const bgMusic = document.getElementById('bgmusic');
+      let isPlaying = false;
+      
+      musicPlayer.addEventListener('click', function() {
+         if (isPlaying) {
+            bgMusic.pause();
+            musicPlayer.classList.remove('playing');
+         } else {
+            bgMusic.play();
+            musicPlayer.classList.add('playing');
+         }
+         isPlaying = !isPlaying;
+      });
+      
+      // 平滑滚动
+      document.querySelectorAll('.scroll').forEach(link => {
+         link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
             window.scrollTo({
-               top: 0,
+               top: targetElement.offsetTop,
                behavior: 'smooth'
             });
          });
-      })();
-      
-      // 懒加载和滚动动画
-      (function() {
-         // 懒加载图片
-         function lazyLoad() {
-            var lazyImages = document.querySelectorAll('.lazy-load');
-            
-            lazyImages.forEach(function(img) {
-               if (img.getAttribute('data-src')) {
-                  if (img.getBoundingClientRect().top <= window.innerHeight && img.getBoundingClientRect().bottom >= 0) {
-                     img.src = img.getAttribute('data-src');
-                     img.classList.add('lazy-loaded');
-                     img.removeAttribute('data-src');
-                  }
-               }
-            });
-         }
-         
-         // 滚动显示动画元素
-         function checkFade() {
-            var fadeElements = document.querySelectorAll('.fade-in');
-            
-            fadeElements.forEach(function(el) {
-               var elementTop = el.getBoundingClientRect().top;
-               var elementVisible = 150;
-               
-               if (elementTop < window.innerHeight - elementVisible) {
-                  el.classList.add('visible');
-               }
-            });
-         }
-         
-         // 初始化
-         window.addEventListener('load', function() {
-            // 将图片src转移到data-src，实现懒加载
-            var images = document.querySelectorAll('.lazy-load');
-            images.forEach(function(img) {
-               var src = img.src;
-               img.src = '';
-               img.setAttribute('data-src', src);
-            });
-            
-            // 初始检查
-            lazyLoad();
-            checkFade();
-            
-            // 隐藏加载动画
-            document.querySelector('.loader').style.display = 'none';
-         });
-         
-         // 滚动时检查
-         window.addEventListener('scroll', function() {
-            lazyLoad();
-            checkFade();
-         });
-         
-         // 调整窗口大小时检查
-         window.addEventListener('resize', function() {
-            lazyLoad();
-            checkFade();
-         });
-      })();
-      
-      // 倒计时功能
-      var together = new Date();
-      var strs = "2024-02-03 08:00:00";
-      var nowTime = new Date();
-      var together = new Date(strs.replace(/-/g, "/"));
-      timeElapse(together);
-      setInterval(function () { timeElapse(together); }, 500);
-      
-      function timeElapse(c) {
-         var e = Date();
-         var f = (Date.parse(e) - Date.parse(c)) / 1000;
-         var g = Math.floor(f / (3600 * 24)); f = f % (3600 * 24);
-         var b = Math.floor(f / 3600);
-         if (b < 10) { b = "0" + b } f = f % 3600; var d = Math.floor(f / 60);
-         if (d < 10) { d = "0" + d } f = f % 60;
-         if (f < 10) { f = "0" + f }
-         var a = '<span class="digit">' + g + '</span> days <span class="digit">' + b + '</span> hours <span class="digit">' + d + '</span> minutes <span class="digit">' + f + "</span> seconds"; $("#elapseClock").html(a)
-      }
+      });
+   });
    </script>
 </body>
 </html>
