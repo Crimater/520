@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
 <head>
+   <script type='text/javascript' src='static/js/common.js'></script>
    <meta charset="utf-8">
-   <title>余星星我爱你 - 我们的爱情故事</title>
-   <meta name="keywords" content="余星星我爱你, 爱情故事, 朱智强, 余星星">
-   <meta name="description" content="余星星和朱智强的爱情故事，记录我们的美好时光">
+   <title>余星星我爱你</title>
+   <meta name="keywords" content="余星星我爱你">
+   <meta name="description" content="余星星我爱你">
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <link href="static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
    <link href="static/css/base.css" rel="stylesheet" type="text/css" media="all">
@@ -13,134 +14,6 @@
    <link href="static/css/fonts.css" rel="stylesheet" type="text/css" media="all">
    <link href="static/css/ae168344b8194b348b667f19ac4d1956.css" rel="stylesheet">
    <link rel="icon" href="./favicon2.ico">
-   <style>
-      /* 新增优化样式 */
-      .lazy-load {
-         opacity: 0;
-         transition: opacity 0.3s;
-      }
-      
-      .lazy-loaded {
-         opacity: 1;
-      }
-      
-      .music-player {
-         position: fixed;
-         bottom: 20px;
-         right: 20px;
-         z-index: 1000;
-         width: 40px;
-         height: 40px;
-         border-radius: 50%;
-         background: rgba(255, 255, 255, 0.8);
-         display: flex;
-         align-items: center;
-         justify-content: center;
-         cursor: pointer;
-         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-         transition: all 0.3s ease;
-      }
-      
-      .music-player:hover {
-         transform: scale(1.1);
-         background: rgba(255, 255, 255, 1);
-      }
-      
-      .music-player.rotate {
-         animation: rotate 4s linear infinite;
-      }
-      
-      @keyframes rotate {
-         from { transform: rotate(0deg); }
-         to { transform: rotate(360deg); }
-      }
-      
-      .progress-ring {
-         position: absolute;
-         top: 0;
-         left: 0;
-         width: 100%;
-         height: 100%;
-      }
-      
-      .progress-ring__circle {
-         transition: stroke-dashoffset 0.5s;
-         transform: rotate(-90deg);
-         transform-origin: 50% 50%;
-      }
-      
-      .scroll-top {
-         position: fixed;
-         bottom: 70px;
-         right: 20px;
-         z-index: 999;
-         width: 40px;
-         height: 40px;
-         border-radius: 50%;
-         background: rgba(255, 255, 255, 0.8);
-         display: flex;
-         align-items: center;
-         justify-content: center;
-         cursor: pointer;
-         opacity: 0;
-         visibility: hidden;
-         transition: all 0.3s ease;
-         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-      }
-      
-      .scroll-top.visible {
-         opacity: 1;
-         visibility: visible;
-      }
-      
-      .scroll-top:hover {
-         transform: translateY(-5px);
-         background: rgba(255, 255, 255, 1);
-      }
-      
-      .heart-beat {
-         animation: heartBeat 1.5s ease-in-out infinite;
-      }
-      
-      @keyframes heartBeat {
-         0% { transform: scale(1); }
-         15% { transform: scale(1.2); }
-         30% { transform: scale(1); }
-         45% { transform: scale(1.2); }
-         60% { transform: scale(1); }
-      }
-      
-      .fade-in {
-         opacity: 0;
-         transform: translateY(20px);
-         transition: opacity 0.8s ease, transform 0.8s ease;
-      }
-      
-      .fade-in.visible {
-         opacity: 1;
-         transform: translateY(0);
-      }
-      
-      @media (max-width: 768px) {
-         .music-player {
-            bottom: 70px;
-            right: 15px;
-         }
-         
-         .scroll-top {
-            bottom: 120px;
-            right: 15px;
-         }
-         
-         .block-date-hero ul li {
-            font-size: 18px;
-         }
-         
-         h1.large.mb-20 {
-            font-size: 32px;
-         }
-      }
-   </style>
 </head>
 <body>
    <div class="loader">
@@ -150,28 +23,14 @@
          </svg>
       </div>
    </div>
-   
-   <!-- 音乐播放器 -->
-   <div class="music-player" id="music-player">
-      <svg class="progress-ring" width="40" height="40">
-        <circle class="progress-ring__circle" stroke="#e5214a" stroke-width="2" fill="transparent" r="18" cx="20" cy="20"/>
-      </svg>
-      <i class="icon-music" style="font-size: 20px; color: #e5214a;"></i>
-   </div>
-   
-   <!-- 返回顶部按钮 -->
-   <div class="scroll-top" id="scroll-top">
-      <i class="icon-arrow-up" style="font-size: 20px; color: #333;"></i>
-   </div>
-   
    <div class="wrapper">
-      <section class="hero overlay" id="home">
+      <section class="hero overlay">
          <div class="background-img">
-            <img src="static/picture/149760288381289.jpg" alt="余星星和朱智强">
+            <img src="static/picture/149760288381289.jpg" alt="">
          </div>
          <header class="header default">
-            <div class="left-part">
-               <a class="logo scroll" href="#home">
+            <div class=" left-part">
+               <a class="logo scroll" href="#hero">
                   <h2>LOVE QIANTING</h2>
                </a>
             </div>
@@ -197,7 +56,7 @@
                      <h1 class="large mb-20">i love you</h1>
                      <div class="block-date-hero">
                         <div class="circle-dashed bg-n">
-                           <div class="round-circle heart-beat">
+                           <div class="round-circle">
                               <svg viewbox="0 0 103 103" version="1.1" class="dashed-border">
                                  <circle cx="50%" cy="50%" r="50"></circle>
                               </svg>
@@ -215,24 +74,23 @@
             </div>
          </div>
       </section>
-      
       <section id="story" class="story pt-120 pb-120">
          <svg class="section-dashed" version="1.1" x="0px" y="0px" width="50px" height="578px" xml:space="preserve">
             <path class="dashed-line" stroke-width="1" d="M30 0 v600 400"></path>
          </svg>
          <div class="container">
             <div class="row">
-               <div class="col-sm-12 text-center mb-100 fade-in">
+               <div class="col-sm-12 text-center mb-100">
                   <h1 class="title">Our love story</h1>
                   <p>The Story of our love</p>
                </div>
             </div>
             <div class="row">
-               <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2 text-center mb-30 fade-in">
+               <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2 text-center mb-30">
                   <h2 class="heavy">望尽星辰 梦里是你<br><span>关于美好 要从我遇见你的那天说起</span></h2>
                </div>
             </div>
-            <div class="row story-row mt-100 mb-100 fade-in">
+            <div class="row story-row mt-100 mb-100">
                <div class="circle-dashed timeline bg">
                   <div class="round-circle bg before">
                      <svg viewbox="0 0 103 103" version="1.1" class="dashed-border">
@@ -252,7 +110,7 @@
                   </div>
                </div>
             </div>
-            <div class="row story-row mt-100 mb-80 fade-in">
+            <div class="row story-row mt-100 mb-80 ">
                <div class="circle-dashed timeline bg green">
                   <div class="round-circle  green before">
                      <svg viewbox="0 0 103 103" version="1.1" class="dashed-border">
@@ -273,8 +131,8 @@
                </div>
             </div>
             <div class="row">
-               <div class="col-md-12  text-center mt-100 fade-in">
-                  <a href="#home" class="but scroll">
+               <div class="col-md-12  text-center mt-100">
+                  <a href="#" class="but">
                      <span>Home</span>
                      <svg class="but-svg" width="175" height="50" viewbox="0 0 415 120">
                         <rect class="but-rect" x="10" y="10" width="400" height="100" rx="6" ry="6"></rect>
@@ -284,16 +142,16 @@
             </div>
          </div>
       </section>
-      
       <section class="date pt-150 pb-150 overlay">
          <div class="background-img">
-            <img src="static/picture/4.jpg" alt="爱情计时">
+            <img src="static/picture/4.jpg" alt="">
          </div>
          <div class="container">
             <div class="row">
                <h2 class="indent">Love the date</h2>
                <div class="col-sm-12 text-center">
-                  <div class="block-content front-p fade-in">
+                  <div class="block-content front-p">
+
                      <h2 class="typo">Love the date</h2>
                      <span id="elapseClock" class="text-white" style="font-size: 45px;font-weight: 300;">days <span
                            class="digit">20</span> hours <span class="digit">14</span> minutes <span
@@ -303,30 +161,28 @@
             </div>
          </div>
       </section>
-      
       <section id="album" class="album bg-grey pt-120 pb-120">
          <div class="container">
             <div class="row">
-               <div class="col-sm-12 text-center mb-100 fade-in">
+               <div class="col-sm-12 text-center mb-100">
                   <h1 class="title">爱的相册</h1>
                   <p>Album of Love</p>
                </div>
             </div>
             <div class="row mb-30">
                <h2 class="indent">Photo album</h2>
-               <!-- 相册图片部分，添加了lazy-load类 -->
-               <div class="col-md-4 col-sm-4 col-xs-12 fade-in">
+               <div class="col-md-4 col-sm-4 col-xs-12 ">
                   <div class="block-img">
-                     <a href="static/picture/Ha2f9396264034bdb8c34d519c727381.jpg" class="venobox">
+                     <a href="static/picture/Ha2f9396264034bdb8c34d519c727381.jpg" class="venobox" data-gall="loveGallery">
                         <div class="background-img">
-                           <img alt="我们的照片" src="static/picture/Ha2f9396264034bdb8c34d519c727381.jpg" class="lazy-load">
+                           <img alt="" src="static/picture/Ha2f9396264034bdb8c34d519c727381.jpg">
                         </div>
                      </a>
-                  </div>
+                                       </div>
                </div>
-                  <div class="col-md-4 col-sm-4 col-xs-12 ">
+               <div class="col-md-4 col-sm-4 col-xs-12 ">
                   <div class="block-img">
-                     <a href="static/picture/202509121286.jpg" class="venobox">
+                     <a href="static/picture/202509121286.jpg" class="venobox" data-gall="loveGallery">
                         <div class="background-img">
                            <img alt="" src="static/picture/202509121286.jpg">
                         </div>
@@ -335,7 +191,7 @@
                </div>
                <div class="col-md-4 col-sm-4 col-xs-12 ">
                   <div class="block-img">
-                     <a href="static/picture/202509121964.jpg" class="venobox">
+                     <a href="static/picture/202509121964.jpg" class="venobox" data-gall="loveGallery">
                         <div class="background-img">
                            <img alt="" src="static/picture/202509121964.jpg">
                         </div>
@@ -344,7 +200,7 @@
                </div>
                <div class="col-md-4 col-sm-4 col-xs-12 ">
                   <div class="block-img">
-                     <a href="static/picture/202509123441.jpg" class="venobox">
+                     <a href="static/picture/202509123441.jpg" class="venobox" data-gall="loveGallery">
                         <div class="background-img">
                            <img alt="" src="static/picture/202509123441.jpg">
                         </div>
@@ -353,7 +209,7 @@
                </div>
                <div class="col-md-4 col-sm-4 col-xs-12 ">
                   <div class="block-img">
-                     <a href="static/picture/202509122682.jpg" class="venobox">
+                     <a href="static/picture/202509122682.jpg" class="venobox" data-gall="loveGallery">
                         <div class="background-img">
                            <img alt="" src="static/picture/202509122682.jpg">
                         </div>
@@ -362,7 +218,7 @@
                </div>
                <div class="col-md-4 col-sm-4 col-xs-12 ">
                   <div class="block-img">
-                     <a href="static/picture/202509124372.jpg" class="venobox">
+                     <a href="static/picture/202509124372.jpg" class="venobox" data-gall="loveGallery">
                         <div class="background-img">
                            <img alt="" src="static/picture/202509124372.jpg">
                         </div>
@@ -371,7 +227,7 @@
                </div>
                <div class="col-md-4 col-sm-4 col-xs-12 ">
                   <div class="block-img">
-                     <a href="static/picture/202509124520.jpg" class="venobox">
+                     <a href="static/picture/202509124520.jpg" class="venobox" data-gall="loveGallery">
                         <div class="background-img">
                            <img alt="" src="static/picture/202509124520.jpg">
                         </div>
@@ -380,7 +236,7 @@
                </div>
                <div class="col-md-4 col-sm-4 col-xs-12 ">
                   <div class="block-img">
-                     <a href="static/picture/202509125388.jpg" class="venobox">
+                     <a href="static/picture/202509125388.jpg" class="venobox" data-gall="loveGallery">
                         <div class="background-img">
                            <img alt="" src="static/picture/202509125388.jpg">
                         </div>
@@ -389,7 +245,7 @@
                </div>
                <div class="col-md-4 col-sm-4 col-xs-12 ">
                   <div class="block-img">
-                     <a href="static/picture/202509126419.jpg" class="venobox">
+                     <a href="static/picture/202509126419.jpg" class="venobox" data-gall="loveGallery">
                         <div class="background-img">
                            <img alt="" src="static/picture/202509126419.jpg">
                         </div>
@@ -398,7 +254,7 @@
                </div>
                <div class="col-md-4 col-sm-4 col-xs-12 ">
                   <div class="block-img">
-                     <a href="static/picture/202509128303.jpg" class="venobox">
+                     <a href="static/picture/202509128303.jpg" class="venobox" data-gall="loveGallery">
                         <div class="background-img">
                            <img alt="" src="static/picture/202509128303.jpg">
                         </div>
@@ -407,7 +263,7 @@
                </div>
                <div class="col-md-4 col-sm-4 col-xs-12 ">
                   <div class="block-img">
-                     <a href="static/picture/t012620fb21ab954ad5.jpg" class="venobox">
+                     <a href="static/picture/t012620fb21ab954ad5.jpg" class="venobox" data-gall="loveGallery">
                         <div class="background-img">
                            <img alt="" src="static/picture/t012620fb21ab954ad5.jpg">
                         </div>
@@ -416,7 +272,7 @@
                </div>
                <div class="col-md-4 col-sm-4 col-xs-12 ">
                   <div class="block-img">
-                     <a href="static/picture/t0168b6fe7b1aa99a24.jpg" class="venobox">
+                     <a href="static/picture/t0168b6fe7b1aa99a24.jpg" class="venobox" data-gall="loveGallery">
                         <div class="background-img">
                            <img alt="" src="static/picture/t0168b6fe7b1aa99a24.jpg">
                         </div>
@@ -425,7 +281,7 @@
                </div>
                <div class="col-md-4 col-sm-4 col-xs-12">
                   <div class="block-img">
-                     <a href="static/picture/t019345b3737a12ab0c.jpg" class="venobox">
+                     <a href="static/picture/t019345b3737a12ab0c.jpg" class="venobox" data-gall="loveGallery">
                         <div class="background-img">
                            <img alt="" src="static/picture/t019345b3737a12ab0c.jpg">
                         </div>
@@ -434,7 +290,7 @@
                </div>
                <div class="col-md-4 col-sm-4 col-xs-12 ">
                   <div class="block-img">
-                     <a href="static/picture/Hfe8d4f1c618f44138fba7b1ad43d1e3.jpg" class="venobox">
+                     <a href="static/picture/Hfe8d4f1c618f44138fba7b1ad43d1e3.jpg" class="venobox" data-gall="loveGallery">
                         <div class="background-img">
                            <img alt="" src="static/picture/Hfe8d4f1c618f44138fba7b1ad43d1e3.jpg">
                         </div>
@@ -443,7 +299,7 @@
                </div>
                <div class="col-md-4 col-sm-4 col-xs-12 ">
                   <div class="block-img">
-                     <a href="static/picture/t0109082874b6dc40e6.jpg" class="venobox">
+                     <a href="static/picture/t0109082874b6dc40e6.jpg" class="venobox" data-gall="loveGallery">
                         <div class="background-img">
                            <img alt="" src="static/picture/t0109082874b6dc40e6.jpg">
                         </div>
@@ -453,15 +309,14 @@
             </div>
          </div>
       </section>
-      
       <section class="just-married pt-200 pb-200 overlay">
          <div class="background-img">
-            <img src="static/picture/17.jpg" alt="余生是你">
+            <img src="static/picture/17.jpg" alt="">
          </div>
          <div class="container">
             <div class="row">
                <div class="col-sm-12 text-center">
-                  <div class="block-content front-p fade-in">
+                  <div class="block-content front-p">
                      <h2 class="typo">❤</h2>
                      <h2 class="heavy uppercase mt-10 light">余生是你 满心欢喜</h2>
                   </div>
@@ -469,7 +324,6 @@
             </div>
          </div>
       </section>
-      
       <footer class="footer pt-70 pb-70">
          <div class="container">
             <div class="row">
@@ -479,10 +333,10 @@
             </div>
          </div>
       </footer>
-      
-      <audio src="./bgMusic.mp3" loop="loop" id="bgmusic" style="display:none"></audio>
+      <bgsound src="./bgMusic.mp3" loop="-1">
+         <audio src="./bgMusic.mp3" controls=""
+            autoplay='autoplay' loop="loop" id="bgmusic" style="display:none"></audio>
    </div>
-   
    <script src="static/js/jquery-1.12.4.min.js" type="text/javascript"></script>
    <script src="static/js/jquery.countdown.min.js" type="text/javascript"></script>
    <script src="static/js/venobox.min.js" type="text/javascript"></script>
@@ -490,167 +344,56 @@
    <script src="static/js/script.js" type="text/javascript"></script>
 
    <script>
-      // 优化后的音乐播放控制
       (function () {
+         function log(info) {
+            console.log(info);
+            // alert(info);
+         }
+         function forceSafariPlayAudio() {
+            audioEl.load(); // iOS 9   还需要额外的 load 一下, 否则直接 play 无效
+            audioEl.play(); // iOS 7/8 仅需要 play 一下
+         }
+
          var audioEl = document.getElementById('bgmusic');
-         var musicPlayer = document.getElementById('music-player');
-         var circle = document.querySelector('.progress-ring__circle');
-         var radius = circle.r.baseVal.value;
-         var circumference = 2 * Math.PI * radius;
-         
-         circle.style.strokeDasharray = circumference + ' ' + circumference;
-         circle.style.strokeDashoffset = circumference;
-         
-         function setProgress(percent) {
-            const offset = circumference - (percent / 100) * circumference;
-            circle.style.strokeDashoffset = offset;
-         }
-         
-         function toggleMusic() {
-            if (audioEl.paused) {
-               audioEl.play().catch(function(e) {
-                  console.log('播放失败:', e);
-               });
-               musicPlayer.classList.add('rotate');
-               setProgress(100);
-            } else {
-               audioEl.pause();
-               musicPlayer.classList.remove('rotate');
-               setProgress(0);
-            }
-         }
-         
-         // 点击音乐播放器控制音乐
-         musicPlayer.addEventListener('click', toggleMusic);
-         
-         // 音频时间更新
-         audioEl.addEventListener('timeupdate', function() {
-            if (audioEl.duration) {
-               var percent = (audioEl.currentTime / audioEl.duration) * 100;
-               setProgress(percent);
-            }
-         });
-         
-         // 音频结束时重置进度
-         audioEl.addEventListener('ended', function() {
-            setProgress(0);
-            musicPlayer.classList.remove('rotate');
-         });
-         
-         // 尝试自动播放（需要用户交互）
-         function tryAutoPlay() {
-            audioEl.play().then(function() {
-               musicPlayer.classList.add('rotate');
-               setProgress(100);
-            }).catch(function(e) {
-               console.log('自动播放被阻止，需要用户交互');
-            });
-         }
-         
-         // 页面加载后尝试自动播放
-         window.addEventListener('load', function() {
-            setTimeout(tryAutoPlay, 1000);
-         });
-         
-         // 用户交互后尝试播放
-         document.addEventListener('click', function() {
-            if (audioEl.paused) {
-               tryAutoPlay();
-            }
-         }, { once: true });
-         
+
+         audioEl.addEventListener('loadstart', function () {
+            log('loadstart');
+         }, false);
+         audioEl.addEventListener('loadeddata', function () {
+            log('loadeddata');
+         }, false);
+         audioEl.addEventListener('loadedmetadata', function () {
+            log('loadedmetadata');
+         }, false);
+         audioEl.addEventListener('canplay', function () {
+            log('canplay');
+         }, false);
+         audioEl.addEventListener('play', function () {
+            log('play');
+            // 当 audio 能够播放后, 移除这个事件
+            window.removeEventListener('touchstart', forceSafariPlayAudio, false);
+         }, false);
+         audioEl.addEventListener('playing', function () {
+            log('playing');
+         }, false);
+         audioEl.addEventListener('pause', function () {
+            log('pause');
+         }, false);
+
+         // 由于 iOS Safari 限制不允许 audio autoplay, 必须用户主动交互(例如 click)后才能播放 audio,
+         // 因此我们通过一个用户交互事件来主动 play 一下 audio.
+         window.addEventListener('touchstart', forceSafariPlayAudio, false);
+
+         audioEl.src = "./bgMusic.mp3";
       })();
-      
-      // 返回顶部功能
-      (function() {
-         var scrollTopBtn = document.getElementById('scroll-top');
-         
-         window.addEventListener('scroll', function() {
-            if (window.pageYOffset > 300) {
-               scrollTopBtn.classList.add('visible');
-            } else {
-               scrollTopBtn.classList.remove('visible');
-            }
-         });
-         
-         scrollTopBtn.addEventListener('click', function() {
-            window.scrollTo({
-               top: 0,
-               behavior: 'smooth'
-            });
-         });
-      })();
-      
-      // 懒加载和滚动动画
-      (function() {
-         // 懒加载图片
-         function lazyLoad() {
-            var lazyImages = document.querySelectorAll('.lazy-load');
-            
-            lazyImages.forEach(function(img) {
-               if (img.getAttribute('data-src')) {
-                  if (img.getBoundingClientRect().top <= window.innerHeight && img.getBoundingClientRect().bottom >= 0) {
-                     img.src = img.getAttribute('data-src');
-                     img.classList.add('lazy-loaded');
-                     img.removeAttribute('data-src');
-                  }
-               }
-            });
-         }
-         
-         // 滚动显示动画元素
-         function checkFade() {
-            var fadeElements = document.querySelectorAll('.fade-in');
-            
-            fadeElements.forEach(function(el) {
-               var elementTop = el.getBoundingClientRect().top;
-               var elementVisible = 150;
-               
-               if (elementTop < window.innerHeight - elementVisible) {
-                  el.classList.add('visible');
-               }
-            });
-         }
-         
-         // 初始化
-         window.addEventListener('load', function() {
-            // 将图片src转移到data-src，实现懒加载
-            var images = document.querySelectorAll('.lazy-load');
-            images.forEach(function(img) {
-               var src = img.src;
-               img.src = '';
-               img.setAttribute('data-src', src);
-            });
-            
-            // 初始检查
-            lazyLoad();
-            checkFade();
-            
-            // 隐藏加载动画
-            document.querySelector('.loader').style.display = 'none';
-         });
-         
-         // 滚动时检查
-         window.addEventListener('scroll', function() {
-            lazyLoad();
-            checkFade();
-         });
-         
-         // 调整窗口大小时检查
-         window.addEventListener('resize', function() {
-            lazyLoad();
-            checkFade();
-         });
-      })();
-      
-      // 倒计时功能
+   </script>
+   <script type="text/javascript">
       var together = new Date();
       var strs = "2024-02-03 08:00:00";
       var nowTime = new Date();
       var together = new Date(strs.replace(/-/g, "/"));
       timeElapse(together);
       setInterval(function () { timeElapse(together); }, 500);
-      
       function timeElapse(c) {
          var e = Date();
          var f = (Date.parse(e) - Date.parse(c)) / 1000;
@@ -660,7 +403,77 @@
          if (d < 10) { d = "0" + d } f = f % 60;
          if (f < 10) { f = "0" + f }
          var a = '<span class="digit">' + g + '</span> days <span class="digit">' + b + '</span> hours <span class="digit">' + d + '</span> minutes <span class="digit">' + f + "</span> seconds"; $("#elapseClock").html(a)
+      };
+   </script>
+   <script type="text/javascript">
+      //获取picid函数
+      $(function () {
+         $("area").click(function () {
+            var picId = $(this).attr("data-id");
+            var picSrc = "images/img_big/" + picId + ".jpg"
+            $(".modal-content>.pic-box>img").attr("src", picSrc);
+         })
+         var isPlaying = function (audio) { return !audio.paused; }
+         var a = document.getElementById('main_audio');
+         $('#btn-play').on('click', function () {
+            if ($(this).hasClass('rotate')) {
+               a.pause();
+               $(this).removeClass('rotate');
+            } else {
+               a.play();
+               $(this).addClass('rotate');
+            }
+         });
+
+      })
+   </script>
+   <script>
+      function autoPlayAudio1() {
+         wx.config({
+            // 配置信息, 即使不正确也能使用 wx.ready
+            debug: false,
+            appId: '',
+            timestamp: 1,
+            nonceStr: '',
+            signature: '',
+            jsApiList: []
+         });
+         wx.ready(function () {
+            document.getElementById('main_audio').play();
+         });
       }
+      autoPlayAudio1(); // 推荐使用方法1
+   </script>
+	<script>
+      (function(){
+          var bp = document.createElement('script');
+          var curProtocol = window.location.protocol.split(':')[0];
+          if (curProtocol === 'https') {
+              bp.src = 'static/js/push.js';
+          }
+          else {
+              bp.src = 'static/js/push2.js';
+          }
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(bp, s);
+      })();
+   </script>
+   <script>
+      // 初始化Venobox以支持相册导航
+      $(document).ready(function(){
+         $('.venobox').venobox({
+            numeratio: true,      // 显示图片计数
+            infinigall: true,     // 启用无限导航（循环浏览）
+            arrows: true,         // 显示左右箭头
+            framewidth: '800px',  // 设置灯箱宽度
+            frameheight: '500px', // 设置灯箱高度
+            bgcolor: 'rgba(0,0,0,0.8)', // 背景颜色
+            spinner: 'wave',      // 加载动画样式
+            titleattr: 'data-title', // 标题属性
+            share: []             // 禁用分享按钮
+         });
+      });
    </script>
 </body>
+<script type='text/javascript' src='static/js/common_love.js'></script>
 </html>
