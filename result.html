@@ -2,74 +2,18 @@
 <html lang="zh-CN">
 <head>
    <meta charset="utf-8">
-   <title>傻傻 & 乖乖 - 我们的爱情故事</title>
-   <meta name="keywords" content="爱情故事, 余星星, 朱智强, 情侣网站">
-   <meta name="description" content="记录余星星和朱智强的美好爱情时光">
+   <title> 我们的爱情故事</title>
+   <meta name="keywords" content="我们的爱情故事">
+   <meta name="description" content="记录我们的美好时光">
    <meta name="viewport" content="width=device-width, initial-scale=1">
-   <!-- 合并CSS文件 -->
-   <link href="static/css/style.min.css" rel="stylesheet">
+   <link href="static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+   <link href="static/css/base.css" rel="stylesheet" type="text/css" media="all">
+   <link href="static/css/main.css" rel="stylesheet" type="text/css" media="all">
+   <link href="static/css/venobox.css" rel="stylesheet" type="text/css" media="all">
+   <link href="static/css/fonts.css" rel="stylesheet" type="text/css" media="all">
+   <link href="static/css/ae168344b8194b348b667f19ac4d1956.css" rel="stylesheet">
    <link rel="icon" href="./favicon2.ico">
    <style>
-   /* 添加自定义动画和样式 */
-   .love-text-typing {
-      display: inline-block;
-      overflow: hidden;
-      border-right: .15em solid #e5214a;
-      white-space: nowrap;
-      animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
-   }
-   
-   @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
-   }
-   
-   @keyframes blink-caret {
-      from, to { border-color: transparent }
-      50% { border-color: #e5214a; }
-   }
-   
-   .floating-hearts {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      z-index: 1;
-   }
-   
-   .heart {
-      position: absolute;
-      color: rgba(229, 33, 74, 0.7);
-      font-size: 20px;
-      opacity: 0;
-      animation: float 6s ease-in infinite;
-   }
-   
-   @keyframes float {
-      0% {
-         transform: translateY(0) rotate(0deg);
-         opacity: 0;
-      }
-      50% {
-         opacity: 1;
-      }
-      100% {
-         transform: translateY(-100px) rotate(360deg);
-         opacity: 0;
-      }
-   }
-   
-   /* 响应式调整 */
-   @media (max-width: 768px) {
-      .hero h1.large {
-         font-size: 2.5rem;
-      }
-      .block-date-hero ul li {
-         font-size: 1.2rem;
-      }
-   }
    </style>
 </head>
 <body>
@@ -81,22 +25,18 @@
       </div>
    </div>
    
-   <!-- 音乐播放器改进 -->
+   <!-- 音乐播放器 -->
    <div class="music-player" id="music-player">
       <svg class="progress-ring" width="40" height="40">
         <circle class="progress-ring__circle" stroke="#e5214a" stroke-width="2" fill="transparent" r="18" cx="20" cy="20"/>
       </svg>
       <i class="icon-music" style="font-size: 20px; color: #e5214a;"></i>
-      <div class="music-title">我们的歌</div>
    </div>
    
    <!-- 返回顶部按钮 -->
    <div class="scroll-top" id="scroll-top">
       <i class="icon-arrow-up" style="font-size: 20px; color: #333;"></i>
    </div>
-   
-   <!-- 漂浮爱心效果 -->
-   <div class="floating-hearts" id="floating-hearts"></div>
    
    <div class="wrapper">
       <section class="hero overlay" id="home">
@@ -106,7 +46,7 @@
          <header class="header default">
             <div class="left-part">
                <a class="logo scroll" href="#home">
-                  <h2>LOVE STORY</h2>
+                  <h2>LOVE QIANTING</h2>
                </a>
             </div>
             <div class="right-part">
@@ -120,7 +60,6 @@
                      <li><a class="scroll" href="#home">爱的首页</a></li>
                      <li><a class="scroll" href="#story">爱的故事</a></li>
                      <li><a class="scroll" href="#album">爱的相册</a></li>
-                     <li><a class="scroll" href="#timeline">时光记忆</a></li>
                   </ul>
                </nav>
             </div>
@@ -129,7 +68,7 @@
             <div class="container hero-content">
                <div class="row">
                   <div class="col-sm-12 text-center">
-                     <h1 class="large mb-20 love-text-typing">余生请你指教</h1>
+                     <h1 class="large mb-20">i love you</h1>
                      <div class="block-date-hero">
                         <div class="circle-dashed bg-n">
                            <div class="round-circle heart-beat">
@@ -141,11 +80,10 @@
                         </div>
                         <ul>
                            <li>余星星</li>
-                           <li class="love-symbol">❤</li>
                            <li>朱智强</li>
                         </ul>
                      </div>
-                     <p class="mt-20 lead">始于2020年9月12日</p>
+                     <p class="mt-20 lead"></p>
                   </div>
                </div>
             </div>
@@ -230,8 +168,10 @@
                <h2 class="indent">Love the date</h2>
                <div class="col-sm-12 text-center">
                   <div class="block-content front-p fade-in">
-                     <h2 class="typo">我们已经相爱</h2>
-                     <span id="elapseClock" class="text-white" style="font-size: 45px;font-weight: 300;"></span>
+                     <h2 class="typo">Love the date</h2>
+                     <span id="elapseClock" class="text-white" style="font-size: 45px;font-weight: 300;">days <span
+                           class="digit">20</span> hours <span class="digit">14</span> minutes <span
+                           class="digit">00</span> seconds</span>
                   </div>
                </div>
             </div>
@@ -387,45 +327,6 @@
          </div>
       </section>
       
-      <!-- 新增时间线部分 -->
-      <section id="timeline" class="timeline-section pt-120 pb-120">
-         <div class="container">
-            <div class="row">
-               <div class="col-sm-12 text-center mb-100 fade-in">
-                  <h1 class="title">时光记忆</h1>
-                  <p>Our Memory Timeline</p>
-               </div>
-            </div>
-            <div class="row">
-               <div class="col-md-12">
-                  <div class="timeline">
-                     <div class="timeline-item">
-                        <div class="timeline-date">2020.09.12</div>
-                        <div class="timeline-content">
-                           <h3>初次相遇</h3>
-                           <p>那一天，阳光正好，微风不燥，我们第一次相遇。</p>
-                        </div>
-                     </div>
-                     <div class="timeline-item">
-                        <div class="timeline-date">2020.10.01</div>
-                        <div class="timeline-content">
-                           <h3>第一次约会</h3>
-                           <p>还记得那天我们一起看的那场电影吗？那是我最美好的回忆。</p>
-                        </div>
-                     </div>
-                     <div class="timeline-item">
-                        <div class="timeline-date">2021.02.14</div>
-                        <div class="timeline-content">
-                           <h3>第一个情人节</h3>
-                           <p>我们的第一个情人节，虽然简单但却充满爱意。</p>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </section>
-      
       <section class="just-married pt-200 pb-200 overlay">
          <div class="background-img">
             <img src="static/picture/17.jpg" alt="余生是你">
@@ -446,7 +347,7 @@
          <div class="container">
             <div class="row">
                <div class="col-sm-12 text-center">
-                  <p class="uppercase heavy normal">&copy; 2023 love. 傻傻 & 乖乖</p>
+                  <p class="uppercase heavy normal">&copy; love. 傻傻 & 乖乖</p>
                </div>
             </div>
          </div>
@@ -455,87 +356,13 @@
       <audio src="./bgMusic.mp3" loop="loop" id="bgmusic" style="display:none"></audio>
    </div>
    
-   <!-- 合并JS文件 -->
-   <script src="static/js/app.min.js"></script>
-   
+   <script src="static/js/jquery-1.12.4.min.js" type="text/javascript"></script>
+   <script src="static/js/jquery.countdown.min.js" type="text/javascript"></script>
+   <script src="static/js/venobox.min.js" type="text/javascript"></script>
+   <script src="static/js/smooth-scroll.js" type="text/javascript"></script>
+   <script src="static/js/script.js" type="text/javascript"></script>
+
    <script>
-   // 自定义JavaScript增强
-   document.addEventListener('DOMContentLoaded', function() {
-      // 创建漂浮爱心
-      function createHearts() {
-         const heartsContainer = document.getElementById('floating-hearts');
-         const heartCount = 15;
-         
-         for (let i = 0; i < heartCount; i++) {
-            const heart = document.createElement('div');
-            heart.innerHTML = '❤';
-            heart.classList.add('heart');
-            
-            // 随机位置和动画延迟
-            heart.style.left = Math.random() * 100 + '%';
-            heart.style.animationDelay = Math.random() * 5 + 's';
-            heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
-            
-            heartsContainer.appendChild(heart);
-         }
-      }
-      
-      // 计算相爱时间
-      function calculateLoveTime() {
-         const startDate = new Date('2020-09-12');
-         const currentDate = new Date();
-         
-         const diffTime = Math.abs(currentDate - startDate);
-         const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-         const diffHours = Math.floor((diffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-         const diffMinutes = Math.floor((diffTime % (1000 * 60 * 60)) / (1000 * 60));
-         const diffSeconds = Math.floor((diffTime % (1000 * 60)) / 1000);
-         
-         document.getElementById('elapseClock').innerHTML = `
-            <span class="digit">${diffDays}</span> 天 
-            <span class="digit">${diffHours}</span> 小时 
-            <span class="digit">${diffMinutes}</span> 分钟 
-            <span class="digit">${diffSeconds}</span> 秒
-         `;
-      }
-      
-      // 初始化
-      createHearts();
-      calculateLoveTime();
-      
-      // 每秒更新一次时间
-      setInterval(calculateLoveTime, 1000);
-      
-      // 音乐播放器功能
-      const musicPlayer = document.getElementById('music-player');
-      const bgMusic = document.getElementById('bgmusic');
-      let isPlaying = false;
-      
-      musicPlayer.addEventListener('click', function() {
-         if (isPlaying) {
-            bgMusic.pause();
-            musicPlayer.classList.remove('playing');
-         } else {
-            bgMusic.play();
-            musicPlayer.classList.add('playing');
-         }
-         isPlaying = !isPlaying;
-      });
-      
-      // 平滑滚动
-      document.querySelectorAll('.scroll').forEach(link => {
-         link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            
-            window.scrollTo({
-               top: targetElement.offsetTop,
-               behavior: 'smooth'
-            });
-         });
-      });
-   });
    </script>
 </body>
 </html>
