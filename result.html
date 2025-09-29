@@ -1,717 +1,1052 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-   <meta charset="utf-8">
-   <title> 我们的爱情故事</title>
-   <meta name="keywords" content="我们的爱情故事">
-   <meta name="description" content="记录我们的美好时光">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <link href="static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
-   <link href="static/css/base.css" rel="stylesheet" type="text/css" media="all">
-   <link href="static/css/main.css" rel="stylesheet" type="text/css" media="all">
-   <link href="static/css/venobox.css" rel="stylesheet" type="text/css" media="all">
-   <link href="static/css/fonts.css" rel="stylesheet" type="text/css" media="all">
-   <link href="static/css/ae168344b8194b348b667f19ac4d1956.css" rel="stylesheet">
-   <link rel="icon" href="./favicon2.ico">
-   <style>
-      /* 新增优化样式 */
-      .lazy-load {
-         opacity: 0;
-         transition: opacity 0.3s;
-      }
-      
-      .lazy-loaded {
-         opacity: 1;
-      }
-      
-      .music-player {
-         position: fixed;
-         bottom: 20px;
-         right: 20px;
-         z-index: 1000;
-         width: 40px;
-         height: 40px;
-         border-radius: 50%;
-         background: rgba(255, 255, 255, 0.8);
-         display: flex;
-         align-items: center;
-         justify-content: center;
-         cursor: pointer;
-         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-         transition: all 0.3s ease;
-      }
-      
-      .music-player:hover {
-         transform: scale(1.1);
-         background: rgba(255, 255, 255, 1);
-      }
-      
-      .music-player.rotate {
-         animation: rotate 4s linear infinite;
-      }
-      
-      @keyframes rotate {
-         from { transform: rotate(0deg); }
-         to { transform: rotate(360deg); }
-      }
-      
-      .progress-ring {
-         position: absolute;
-         top: 0;
-         left: 0;
-         width: 100%;
-         height: 100%;
-      }
-      
-      .progress-ring__circle {
-         transition: stroke-dashoffset 0.5s;
-         transform: rotate(-90deg);
-         transform-origin: 50% 50%;
-      }
-      
-      .scroll-top {
-         position: fixed;
-         bottom: 70px;
-         right: 20px;
-         z-index: 999;
-         width: 40px;
-         height: 40px;
-         border-radius: 50%;
-         background: rgba(255, 255, 255, 0.8);
-         display: flex;
-         align-items: center;
-         justify-content: center;
-         cursor: pointer;
-         opacity: 0;
-         visibility: hidden;
-         transition: all 0.3s ease;
-         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-      }
-      
-      .scroll-top.visible {
-         opacity: 1;
-         visibility: visible;
-      }
-      
-      .scroll-top:hover {
-         transform: translateY(-5px);
-         background: rgba(255, 255, 255, 1);
-      }
-      
-      /* 新增：返回顶部按钮的进度条 */
-      .scroll-top-progress {
-         position: absolute;
-         top: -2px;
-         left: -2px;
-         width: 44px;
-         height: 44px;
-         border-radius: 50%;
-      }
-      
-      .scroll-top-progress-ring {
-         width: 100%;
-         height: 100%;
-      }
-      
-      .scroll-top-progress-circle {
-         transition: stroke-dashoffset 0.3s;
-         transform: rotate(-90deg);
-         transform-origin: 50% 50%;
-         stroke: #e5214a; /* 改为和音乐进度条相同的颜色 */
-         stroke-width: 2;
-         fill: transparent;
-      }
-      
-      .scroll-top-icon {
-         font-size: 20px;
-         color: #333;
-         position: relative;
-         z-index: 1;
-      }
-      
-      .heart-beat {
-         animation: heartBeat 1.5s ease-in-out infinite;
-      }
-      
-      @keyframes heartBeat {
-         0% { transform: scale(1); }
-         15% { transform: scale(1.2); }
-         30% { transform: scale(1); }
-         45% { transform: scale(1.2); }
-         60% { transform: scale(1); }
-      }
-      
-      .fade-in {
-         opacity: 0;
-         transform: translateY(20px);
-         transition: opacity 0.8s ease, transform 0.8s ease;
-      }
-      
-      .fade-in.visible {
-         opacity: 1;
-         transform: translateY(0);
-      }
-      
-      @media (max-width: 768px) {
-         .music-player {
+    <meta charset="utf-8">
+    <title>我们的爱情故事</title>
+    <meta name="keywords" content="我们的爱情故事">
+    <meta name="description" content="记录我们的美好时光">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- 样式文件 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/css/base.css" rel="stylesheet">
+    <link href="static/css/main.css" rel="stylesheet">
+    <link href="static/css/venobox.css" rel="stylesheet">
+    <link href="static/css/fonts.css" rel="stylesheet">
+    <link href="static/css/ae168344b8194b348b667f19ac4d1956.css" rel="stylesheet">
+    <link rel="icon" href="./favicon2.ico">
+    
+    <style>
+        :root {
+            --primary-color: #e5214a;
+            --white: #ffffff;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s ease;
+        }
+
+        /* 加载动画 */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--white);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loading-spinner {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* 音乐播放器 */
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .music-player:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .music-player.rotate {
+            animation: rotate 4s linear infinite;
+        }
+
+        @keyframes rotate {
+            to { transform: rotate(360deg); }
+        }
+
+        .progress-ring {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .progress-ring__circle {
+            transition: stroke-dashoffset 0.5s;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+            stroke: var(--primary-color);
+            stroke-width: 2;
+            fill: transparent;
+        }
+
+        /* 返回顶部按钮 */
+        .scroll-top {
+            position: fixed;
             bottom: 70px;
-            right: 15px;
-         }
-         
-         .scroll-top {
-            bottom: 120px;
-            right: 15px;
-         }
-         
-         .block-date-hero ul li {
-            font-size: 18px;
-         }
-         
-         h1.large.mb-20 {
-            font-size: 32px;
-         }
-      }
-   </style>
+            right: 20px;
+            z-index: 999;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .scroll-top-progress {
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+        }
+
+        .scroll-top-progress-circle {
+            transition: stroke-dashoffset 0.3s;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+            stroke: var(--primary-color);
+            stroke-width: 2;
+            fill: transparent;
+        }
+
+        .scroll-top-icon {
+            font-size: 20px;
+            color: #333;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 动画效果 */
+        .heart-beat {
+            animation: heartBeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartBeat {
+            0%, 60% { transform: scale(1); }
+            15%, 45% { transform: scale(1.2); }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 图片懒加载 */
+        .lazy-img {
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .lazy-img.loaded {
+            opacity: 1;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .music-player {
+                bottom: 70px;
+                right: 15px;
+            }
+            
+            .scroll-top {
+                bottom: 120px;
+                right: 15px;
+            }
+            
+            .block-date-hero ul li {
+                font-size: 18px;
+            }
+            
+            h1.large.mb-20 {
+                font-size: 32px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .music-player,
+            .scroll-top {
+                width: 36px;
+                height: 36px;
+            }
+            
+            .scroll-top-progress {
+                width: 40px;
+                height: 40px;
+            }
+        }
+        
+        /* 自定义样式 */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .background-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .background-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .inner-hero {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .block-date-hero {
+            margin: 30px 0;
+        }
+        
+        .circle-dashed {
+            display: inline-block;
+            position: relative;
+        }
+        
+        .round-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0 auto 20px;
+        }
+        
+        .block-date-hero ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .block-date-hero ul li {
+            font-size: 24px;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        
+        .story {
+            position: relative;
+            padding: 120px 0;
+        }
+        
+        .story-row {
+            position: relative;
+            margin: 100px 0;
+        }
+        
+        .circle-dashed.timeline {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+        
+        .couple-story {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .date {
+            position: relative;
+            padding: 150px 0;
+            color: white;
+            text-align: center;
+        }
+        
+        .album {
+            padding: 120px 0;
+            background: #f8f9fa;
+        }
+        
+        .block-img {
+            margin-bottom: 30px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .block-img:hover {
+            transform: translateY(-5px);
+        }
+        
+        .block-img img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .block-img:hover img {
+            transform: scale(1.05);
+        }
+        
+        .just-married {
+            position: relative;
+            padding: 200px 0;
+            color: white;
+            text-align: center;
+        }
+        
+        .footer {
+            padding: 70px 0;
+            background: #333;
+            color: white;
+            text-align: center;
+        }
+        
+        .title {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+        
+        .digit {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .but {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .but:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(229, 33, 74, 0.3);
+            color: white;
+        }
+        
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 0;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        
+        .header.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 10px 0;
+        }
+        
+        .main-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+        
+        .main-nav ul li {
+            margin: 0 15px;
+        }
+        
+        .main-nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        
+        .header.scrolled .main-nav ul li a {
+            color: #333;
+        }
+        
+        .main-nav ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        .logo h2 {
+            color: white;
+            margin: 0;
+            font-weight: bold;
+        }
+        
+        .header.scrolled .logo h2 {
+            color: #333;
+        }
+    </style>
 </head>
 <body>
-   <div class="loader">
-      <div class="loader-inner">
-         <svg width="120" height="220" viewbox="0 0 100 100" class="loading-spinner" version="1.1">
-            <circle class="spinner" cx="50" cy="50" r="21" fill="#ffffff" stroke-width="2"></circle>
-         </svg>
-      </div>
-   </div>
-   
-   <!-- 音乐播放器 -->
-   <div class="music-player" id="music-player">
-      <svg class="progress-ring" width="40" height="40">
-        <circle class="progress-ring__circle" stroke="#e5214a" stroke-width="2" fill="transparent" r="18" cx="20" cy="20"/>
-      </svg>
-      <i class="icon-music" style="font-size: 20px; color: #e5214a;"></i>
-   </div>
-   
-   <!-- 返回顶部按钮 -->
-   <div class="scroll-top" id="scroll-top">
-      <div class="scroll-top-progress">
-         <svg class="scroll-top-progress-ring" width="44" height="44">
-            <circle class="scroll-top-progress-circle" r="20" cx="22" cy="22"/>
-         </svg>
-      </div>
-      <i class="scroll-top-icon">▲</i>
-   </div>
-   
-   <div class="wrapper">
-      <section class="hero overlay" id="home">
-         <div class="background-img">
-            <img src="static/picture/149760288381289.jpg" alt="傻傻&乖乖">
-         </div>
-         <header class="header default">
-            <div class="left-part">
-               <a class="logo scroll" href="#home">
-                  <h2>LOVE QIANTING</h2>
-               </a>
+    <div class="loader">
+        <div class="loader-inner">
+            <svg width="60" height="60" viewBox="0 0 100 100" class="loading-spinner">
+                <circle cx="50" cy="50" r="21" fill="var(--primary-color)" stroke-width="2"></circle>
+            </svg>
+        </div>
+    </div>
+    
+    <!-- 音乐播放器 -->
+    <div class="music-player" id="musicPlayer" aria-label="音乐播放器" role="button" tabindex="0">
+        <svg class="progress-ring" width="40" height="40">
+            <circle class="progress-ring__circle" r="18" cx="20" cy="20"/>
+        </svg>
+        <i class="icon-music" style="font-size: 20px; color: var(--primary-color);">♪</i>
+    </div>
+    
+    <!-- 返回顶部按钮 -->
+    <div class="scroll-top" id="scrollTop" aria-label="返回顶部" role="button" tabindex="0">
+        <div class="scroll-top-progress">
+            <svg class="scroll-top-progress-ring" width="44" height="44">
+                <circle class="scroll-top-progress-circle" r="20" cx="22" cy="22"/>
+            </svg>
+        </div>
+        <i class="scroll-top-icon">▲</i>
+    </div>
+    
+    <div class="wrapper">
+        <section class="hero overlay" id="home">
+            <div class="background-img">
+                <img src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="傻傻&乖乖" class="lazy-img" loading="lazy">
             </div>
-            <div class="right-part">
-               <nav class="main-nav">
-                  <div class="toggle-mobile-but">
-                     <a href="#" class="mobile-but">
-                        <div class="lines"></div>
-                     </a>
-                  </div>
-                  <ul>
-                     <li><a class="scroll" href="#home">爱的首页</a></li>
-                     <li><a class="scroll" href="#story">爱的故事</a></li>
-                     <li><a class="scroll" href="#album">爱的相册</a></li>
-                  </ul>
-               </nav>
+            <header class="header default">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+                            <a class="logo scroll" href="#home">
+                                <h2>LOVE QIANTING</h2>
+                            </a>
+                        </div>
+                        <div class="col-md-8">
+                            <nav class="main-nav">
+                                <div class="toggle-mobile-but d-md-none">
+                                    <a href="#" class="mobile-but" aria-label="导航菜单">
+                                        <div class="lines"></div>
+                                    </a>
+                                </div>
+                                <ul class="d-none d-md-flex justify-content-end">
+                                    <li><a class="scroll" href="#home">爱的首页</a></li>
+                                    <li><a class="scroll" href="#story">爱的故事</a></li>
+                                    <li><a class="scroll" href="#album">爱的相册</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="inner-hero">
+                <div class="container hero-content">
+                    <div class="row">
+                        <div class="col-sm-12 text-center">
+                            <h1 class="large mb-20 fade-in">i love you</h1>
+                            <div class="block-date-hero fade-in">
+                                <div class="circle-dashed bg-n">
+                                    <div class="round-circle heart-beat">
+                                        <svg viewBox="0 0 103 103" class="dashed-border">
+                                            <circle cx="50%" cy="50%" r="50"></circle>
+                                        </svg>
+                                        <i class="icon-heart">❤</i>
+                                    </div>
+                                </div>
+                                <ul>
+                                    <li>余星星</li>
+                                    <li>朱智强</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-         </header>
-         <div class="inner-hero">
-            <div class="container hero-content">
-               <div class="row">
-                  <div class="col-sm-12 text-center">
-                     <h1 class="large mb-20">i love you</h1>
-                     <div class="block-date-hero">
-                        <div class="circle-dashed bg-n">
-                           <div class="round-circle heart-beat">
-                              <svg viewbox="0 0 103 103" version="1.1" class="dashed-border">
-                                 <circle cx="50%" cy="50%" r="50"></circle>
-                              </svg>
-                              <i class="icon-heart"></i>
-                           </div>
+        </section>
+        
+        <section id="story" class="story pt-120 pb-120">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 text-center mb-100 fade-in">
+                        <h1 class="title">Our love story</h1>
+                        <p>The Story of our love</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 offset-md-3 col-sm-8 offset-sm-2 text-center mb-30 fade-in">
+                        <h2 class="heavy">望尽星辰 梦里是你<br><span>关于美好 要从我遇见你的那天开始</span></h2>
+                    </div>
+                </div>
+                <div class="row story-row mt-100 mb-100 fade-in">
+                    <div class="circle-dashed timeline bg">
+                        <div class="round-circle bg before">
+                            <svg viewBox="0 0 103 103" class="dashed-border">
+                                <circle cx="50%" cy="50%" r="50"></circle>
+                            </svg>
+                            <i class="icon-heart">❤</i>
                         </div>
-                        <ul>
-                           <li>余星星</li>
-                           <li>朱智强</li>
-                        </ul>
-                     </div>
-                     <p class="mt-20 lead"></p>
-                  </div>
-               </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="couple-story text-right">
+                            <p>你在的时候，你就是全世界，你不在的时候，全世界都是你。</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-5 offset-sm-2">
+                        <div class="couple-story">
+                            <p>莎士比亚说过：爱情是一种甜蜜的痛苦，但是我愿意忍受这种痛苦，莎士比亚还说过，世界上没有比服侍爱情更快乐的了，你愿不愿意享受这种快乐？当然你是愿意的 ~ 嘿嘿！</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row story-row mt-100 mb-80 fade-in">
+                    <div class="circle-dashed timeline bg green">
+                        <div class="round-circle green before">
+                            <svg viewBox="0 0 103 103" class="dashed-border">
+                                <circle cx="50%" cy="50%" r="50"></circle>
+                            </svg>
+                            <i class="icon-heart">❤</i>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="couple-story text-right">
+                            <p>如果我从没遇见你，如果我从没爱上你，如果我一开始没坚信，也许我就不会是现在的这个自己。</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-5 offset-sm-2">
+                        <div class="couple-story">
+                            <p>有一种爱的感觉，叫感同身受。有一种爱的默契，叫心有灵犀。有一种爱的承诺，叫天长地久。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center mt-100 fade-in">
+                        <a href="#home" class="but scroll">
+                            <span>Home</span>
+                        </a>
+                    </div>
+                </div>
             </div>
-         </div>
-      </section>
-      
-      <section id="story" class="story pt-120 pb-120">
-         <svg class="section-dashed" version="1.1" x="0px" y="0px" width="50px" height="578px" xml:space="preserve">
-            <path class="dashed-line" stroke-width="1" d="M30 0 v600 400"></path>
-         </svg>
-         <div class="container">
-            <div class="row">
-               <div class="col-sm-12 text-center mb-100 fade-in">
-                  <h1 class="title">Our love story</h1>
-                  <p>The Story of our love</p>
-               </div>
+        </section>
+        
+        <section class="date pt-150 pb-150 overlay">
+            <div class="background-img">
+                <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="爱情计时" class="lazy-img" loading="lazy">
             </div>
-            <div class="row">
-               <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2 text-center mb-30 fade-in">
-                  <h2 class="heavy">望尽星辰 梦里是你<br><span>关于美好 要从我遇见你的那天开始</span></h2>
-               </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <div class="block-content front-p fade-in">
+                            <h2 class="typo">Love the date</h2>
+                            <span id="elapseClock" class="text-white" style="font-size: 45px;font-weight: 300;"></span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="row story-row mt-100 mb-100 fade-in">
-               <div class="circle-dashed timeline bg">
-                  <div class="round-circle bg before">
-                     <svg viewbox="0 0 103 103" version="1.1" class="dashed-border">
-                        <circle cx="50%" cy="50%" r="50"></circle>
-                     </svg>
-                     <i class="icon-heart"></i>
-                  </div>
-               </div>
-               <div class="col-sm-5 ">
-                  <div class="couple-story text-right">
-                     <p>你在的时候，你就是全世界，你不在的时候，全世界都是你。</p>
-                  </div>
-               </div>
-               <div class="col-sm-5 col-sm-offset-2">
-                  <div class="couple-story">
-                     <p>莎士比亚说过：爱情是一种甜蜜的痛苦，但是我愿意忍受这种痛苦，莎士比亚还说过，世界上没有比服侍爱情更快乐的了，你愿不愿意享受这种快乐？当然你是愿意的 ~ 嘿嘿！</p>
-                  </div>
-               </div>
+        </section>
+        
+        <section id="album" class="album bg-grey pt-120 pb-120">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 text-center mb-100 fade-in">
+                        <h1 class="title">爱的相册</h1>
+                        <p>Album of Love</p>
+                    </div>
+                </div>
+                <div class="row mb-30">
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="block-img">
+                            <a href="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="venobox" data-gall="loveGallery">
+                                <div class="background-img">
+                                    <img alt="" src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="lazy-img" loading="lazy">
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="block-img">
+                            <a href="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="venobox" data-gall="loveGallery">
+                                <div class="background-img">
+                                    <img alt="" src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="lazy-img" loading="lazy">
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="block-img">
+                            <a href="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="venobox" data-gall="loveGallery">
+                                <div class="background-img">
+                                    <img alt="" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="lazy-img" loading="lazy">
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="block-img">
+                            <a href="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="venobox" data-gall="loveGallery">
+                                <div class="background-img">
+                                    <img alt="" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="lazy-img" loading="lazy">
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="block-img">
+                            <a href="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="venobox" data-gall="loveGallery">
+                                <div class="background-img">
+                                    <img alt="" src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="lazy-img" loading="lazy">
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="block-img">
+                            <a href="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="venobox" data-gall="loveGallery">
+                                <div class="background-img">
+                                    <img alt="" src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="lazy-img" loading="lazy">
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="row story-row mt-100 mb-80 fade-in">
-               <div class="circle-dashed timeline bg green">
-                  <div class="round-circle  green before">
-                     <svg viewbox="0 0 103 103" version="1.1" class="dashed-border">
-                        <circle cx="50%" cy="50%" r="50"></circle>
-                     </svg>
-                     <i class="icon-heart"></i>
-                  </div>
-               </div>
-               <div class="col-sm-5 ">
-                  <div class="couple-story text-right">
-                     <p>如果我从没遇见你，如果我从没爱上你，如果我一开始没坚信，也许我就不会是现在的这个自己。</p>
-                  </div>
-               </div>
-               <div class="col-sm-5 col-sm-offset-2">
-                  <div class="couple-story">
-                     <p>有一种爱的感觉，叫感同身受。有一种爱的默契，叫心有灵犀。有一种爱的承诺，叫天长地久。</p>
-                  </div>
-               </div>
+        </section>
+        
+        <section class="just-married pt-200 pb-200 overlay">
+            <div class="background-img">
+                <img src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="余生是你" class="lazy-img" loading="lazy">
             </div>
-            <div class="row">
-               <div class="col-md-12  text-center mt-100 fade-in">
-                  <a href="#home" class="but scroll">
-                     <span>Home</span>
-                     <svg class="but-svg" width="175" height="50" viewbox="0 0 415 120">
-                        <rect class="but-rect" x="10" y="10" width="400" height="100" rx="6" ry="6"></rect>
-                     </svg>
-                  </a>
-               </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <div class="block-content front-p fade-in">
+                            <h2 class="typo">❤</h2>
+                            <h2 class="heavy uppercase mt-10 light">余生是你 满心欢喜</h2>
+                        </div>
+                    </div>
+                </div>
             </div>
-         </div>
-      </section>
-      
-      <section class="date pt-150 pb-150 overlay">
-         <div class="background-img">
-            <img src="static/picture/4.jpg" alt="爱情计时">
-         </div>
-         <div class="container">
-            <div class="row">
-               <h2 class="indent">Love the date</h2>
-               <div class="col-sm-12 text-center">
-                  <div class="block-content front-p fade-in">
-                     <h2 class="typo">Love the date</h2>
-                     <span id="elapseClock" class="text-white" style="font-size: 45px;font-weight: 300;">days <span
-                           class="digit">20</span> hours <span class="digit">14</span> minutes <span
-                           class="digit">00</span> seconds</span>
-                  </div>
-               </div>
+        </section>
+        
+        <footer class="footer pt-70 pb-70">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <p class="uppercase heavy normal">&copy; love. 傻傻 & 乖乖</p>
+                    </div>
+                </div>
             </div>
-         </div>
-      </section>
-      
-      <section id="album" class="album bg-grey pt-120 pb-120">
-         <div class="container">
-            <div class="row">
-               <div class="col-sm-12 text-center mb-100 fade-in">
-                  <h1 class="title">爱的相册</h1>
-                  <p>Album of Love</p>
-               </div>
-            </div>
-            <div class="row mb-30">
-               <h2 class="indent">Photo album</h2>
-               <div class="col-md-4 col-sm-4 col-xs-12 ">
-                  <div class="block-img">
-                     <a href="static/picture/Ha2f9396264034bdb8c34d519c727381.jpg" class="venobox" data-gall="loveGallery">
-                        <div class="background-img">
-                           <img alt="" src="static/picture/Ha2f9396264034bdb8c34d519c727381.jpg">
-                        </div>
-                     </a>
-                  </div>
-               </div>
-                           <div class="col-md-4 col-sm-4 col-xs-12 ">
-                  <div class="block-img">
-                     <a href="static/picture/202509121286.jpg" class="venobox" data-gall="loveGallery">
-                        <div class="background-img">
-                           <img alt="" src="static/picture/202509121286.jpg">
-                        </div>
-                     </a>
-</div>
-               </div>
-               <div class="col-md-4 col-sm-4 col-xs-12 ">
-                  <div class="block-img">
-                     <a href="static/picture/202509121964.jpg" class="venobox" data-gall="loveGallery">
-                        <div class="background-img">
-                           <img alt="" src="static/picture/202509121964.jpg">
-                        </div>
-                     </a>
-</div>
-               </div>
-               <div class="col-md-4 col-sm-4 col-xs-12 ">
-                  <div class="block-img">
-                     <a href="static/picture/202509123441.jpg" class="venobox" data-gall="loveGallery">
-                        <div class="background-img">
-                           <img alt="" src="static/picture/202509123441.jpg">
-                        </div>
-                     </a>
-</div>
-               </div>
-               <div class="col-md-4 col-sm-4 col-xs-12 ">
-                  <div class="block-img">
-                     <a href="static/picture/202509122682.jpg" class="venobox" data-gall="loveGallery">
-                        <div class="background-img">
-                           <img alt="" src="static/picture/202509122682.jpg">
-                        </div>
-                     </a>
-</div>
-               </div>
-               <div class="col-md-4 col-sm-4 col-xs-12 ">
-                  <div class="block-img">
-                     <a href="static/picture/202509124372.jpg" class="venobox" data-gall="loveGallery">
-                        <div class="background-img">
-                           <img alt="" src="static/picture/202509124372.jpg">
-                        </div>
-                     </a>
-</div>
-               </div>
-               <div class="col-md-4 col-sm-4 col-xs-12 ">
-                  <div class="block-img">
-                     <a href="static/picture/202509124520.jpg" class="venobox" data-gall="loveGallery">
-                        <div class="background-img">
-                           <img alt="" src="static/picture/202509124520.jpg">
-                        </div>
-                     </a>
-</div>
-               </div>
-               <div class="col-md-4 col-sm-4 col-xs-12 ">
-                  <div class="block-img">
-                     <a href="static/picture/202509125388.jpg" class="venobox" data-gall="loveGallery">
-                        <div class="background-img">
-                           <img alt="" src="static/picture/202509125388.jpg">
-                        </div>
-                     </a>
-</div>
-               </div>
-               <div class="col-md-4 col-sm-4 col-xs-12 ">
-                  <div class="block-img">
-                     <a href="static/picture/202509126419.jpg" class="venobox" data-gall="loveGallery">
-                        <div class="background-img">
-                           <img alt="" src="static/picture/202509126419.jpg">
-                        </div>
-                     </a>
-</div>
-               </div>
-               <div class="col-md-4 col-sm-4 col-xs-12 ">
-                  <div class="block-img">
-                     <a href="static/picture/202509128303.jpg" class="venobox" data-gall="loveGallery">
-                        <div class="background-img">
-                           <img alt="" src="static/picture/202509128303.jpg">
-                        </div>
-                     </a>
-                  </div>
-               </div>
-               <div class="col-md-4 col-sm-4 col-xs-12 ">
-                  <div class="block-img">
-                     <a href="static/picture/t012620fb21ab954ad5.jpg" class="venobox" data-gall="loveGallery">
-                        <div class="background-img">
-                           <img alt="" src="static/picture/t012620fb21ab954ad5.jpg">
-                        </div>
-                     </a>
-                  </div>
-               </div>
-               <div class="col-md-4 col-sm-4 col-xs-12 ">
-                  <div class="block-img">
-                     <a href="static/picture/t0168b6fe7b1aa99a24.jpg" class="venobox" data-gall="loveGallery">
-                        <div class="background-img">
-                           <img alt="" src="static/picture/t0168b6fe7b1aa99a24.jpg">
-                        </div>
-                     </a>
-                  </div>
-               </div>
-               <div class="col-md-4 col-sm-4 col-xs-12">
-                  <div class="block-img">
-                     <a href="static/picture/t019345b3737a12ab0c.jpg" class="venobox" data-gall="loveGallery">
-                        <div class="background-img">
-                           <img alt="" src="static/picture/t019345b3737a12ab0c.jpg">
-                        </div>
-                     </a>
-                  </div>
-               </div>
-               <div class="col-md-4 col-sm-4 col-xs-12 ">
-                  <div class="block-img">
-                     <a href="static/picture/Hfe8d4f1c618f44138fba7b1ad43d1e3.jpg" class="venobox" data-gall="loveGallery">
-                        <div class="background-img">
-                           <img alt="" src="static/picture/Hfe8d4f1c618f44138fba7b1ad43d1e3.jpg">
-                        </div>
-                     </a>
-                                       </div>
-               </div>
-               <div class="col-md-4 col-sm-4 col-xs-12 ">
-                  <div class="block-img">
-                     <a href="static/picture/t0109082874b6dc40e6.jpg" class="venobox" data-gall="loveGallery">
-                        <div class="background-img">
-                           <img alt="" src="static/picture/t0109082874b6dc40e6.jpg">
-                        </div>
-                     </a>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </section>
-      
-      <section class="just-married pt-200 pb-200 overlay">
-         <div class="background-img">
-            <img src="static/picture/17.jpg" alt="余生是你">
-         </div>
-         <div class="container">
-            <div class="row">
-               <div class="col-sm-12 text-center">
-                  <div class="block-content front-p fade-in">
-                     <h2 class="typo">❤</h2>
-                     <h2 class="heavy uppercase mt-10 light">余生是你 满心欢喜</h2>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </section>
-      
-      <footer class="footer pt-70 pb-70">
-         <div class="container">
-            <div class="row">
-               <div class="col-sm-12 text-center">
-                  <p class="uppercase heavy normal">&copy; love. 傻傻 & 乖乖</p>
-               </div>
-            </div>
-         </div>
-      </footer>
-      
-      <audio src="./bgMusic.mp3" loop="loop" id="bgmusic" style="display:none"></audio>
-   </div>
-   
-   <script src="static/js/jquery-1.12.4.min.js" type="text/javascript"></script>
-   <script src="static/js/jquery.countdown.min.js" type="text/javascript"></script>
-   <script src="static/js/venobox.min.js" type="text/javascript"></script>
-   <script src="static/js/smooth-scroll.js" type="text/javascript"></script>
-   <script src="static/js/script.js" type="text/javascript"></script>
+        </footer>
+        
+        <audio src="./bgMusic.mp3" loop id="bgMusic" preload="metadata" style="display:none"></audio>
+    </div>
+    
+    <!-- 脚本文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="static/js/jquery-1.12.4.min.js"></script>
+    <script src="static/js/jquery.countdown.min.js"></script>
+    <script src="static/js/venobox.min.js"></script>
+    <script src="static/js/smooth-scroll.js"></script>
+    <script src="static/js/script.js"></script>
 
-   <script>
-      // 优化后的音乐播放控制
-      (function () {
-         var audioEl = document.getElementById('bgmusic');
-         var musicPlayer = document.getElementById('music-player');
-         var circle = document.querySelector('.progress-ring__circle');
-         var radius = circle.r.baseVal.value;
-         var circumference = 2 * Math.PI * radius;
-         
-         circle.style.strokeDasharray = circumference + ' ' + circumference;
-         circle.style.strokeDashoffset = circumference;
-         
-         function setProgress(percent) {
-            const offset = circumference - (percent / 100) * circumference;
-            circle.style.strokeDashoffset = offset;
-         }
-         
-         function toggleMusic() {
-            if (audioEl.paused) {
-               audioEl.play().catch(function(e) {
-                  console.log('播放失败:', e);
-               });
-               musicPlayer.classList.add('rotate');
-               setProgress(100);
+    <script>
+        // 使用模块化方式组织代码
+        (function() {
+            'use strict';
+            
+            // 配置常量
+            const CONFIG = {
+                LAZY_LOAD_OFFSET: 150,
+                SCROLL_THRESHOLD: 300,
+                AUTO_PLAY_DELAY: 1000
+            };
+            
+            // DOM 元素缓存
+            const elements = {
+                loader: document.querySelector('.loader'),
+                musicPlayer: document.getElementById('musicPlayer'),
+                scrollTop: document.getElementById('scrollTop'),
+                bgMusic: document.getElementById('bgMusic'),
+                progressCircle: document.querySelector('.progress-ring__circle'),
+                scrollProgressCircle: document.querySelector('.scroll-top-progress-circle'),
+                header: document.querySelector('.header')
+            };
+            
+            // 工具函数
+            const utils = {
+                // 节流函数
+                throttle(func, delay) {
+                    let timeoutId;
+                    let lastExecTime = 0;
+                    return function (...args) {
+                        const currentTime = Date.now();
+                        if (currentTime - lastExecTime > delay) {
+                            func.apply(this, args);
+                            lastExecTime = currentTime;
+                        } else {
+                            clearTimeout(timeoutId);
+                            timeoutId = setTimeout(() => {
+                                func.apply(this, args);
+                                lastExecTime = Date.now();
+                            }, delay);
+                        }
+                    };
+                },
+                
+                // 设置圆形进度
+                setCircleProgress(circle, percent) {
+                    const radius = circle.r.baseVal.value;
+                    const circumference = 2 * Math.PI * radius;
+                    const offset = circumference - (percent / 100) * circumference;
+                    
+                    circle.style.strokeDasharray = `${circumference} ${circumference}`;
+                    circle.style.strokeDashoffset = offset;
+                }
+            };
+            
+            // 音乐播放器模块
+            const musicPlayer = {
+                init() {
+                    this.setupProgressCircle();
+                    this.bindEvents();
+                    this.tryAutoPlay();
+                },
+                
+                setupProgressCircle() {
+                    if (elements.progressCircle) {
+                        utils.setCircleProgress(elements.progressCircle, 0);
+                    }
+                },
+                
+                bindEvents() {
+                    elements.musicPlayer.addEventListener('click', () => this.toggle());
+                    elements.musicPlayer.addEventListener('keypress', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            this.toggle();
+                        }
+                    });
+                    
+                    elements.bgMusic.addEventListener('timeupdate', () => this.updateProgress());
+                    elements.bgMusic.addEventListener('ended', () => this.onEnded());
+                },
+                
+                toggle() {
+                    if (elements.bgMusic.paused) {
+                        this.play();
+                    } else {
+                        this.pause();
+                    }
+                },
+                
+                async play() {
+                    try {
+                        await elements.bgMusic.play();
+                        elements.musicPlayer.classList.add('rotate');
+                        utils.setCircleProgress(elements.progressCircle, 100);
+                    } catch (error) {
+                        console.log('播放失败:', error);
+                    }
+                },
+                
+                pause() {
+                    elements.bgMusic.pause();
+                    elements.musicPlayer.classList.remove('rotate');
+                    utils.setCircleProgress(elements.progressCircle, 0);
+                },
+                
+                updateProgress() {
+                    if (elements.bgMusic.duration) {
+                        const percent = (elements.bgMusic.currentTime / elements.bgMusic.duration) * 100;
+                        utils.setCircleProgress(elements.progressCircle, percent);
+                    }
+                },
+                
+                onEnded() {
+                    utils.setCircleProgress(elements.progressCircle, 0);
+                    elements.musicPlayer.classList.remove('rotate');
+                },
+                
+                tryAutoPlay() {
+                    setTimeout(() => {
+                        this.play().catch(() => {
+                            console.log('自动播放被阻止，需要用户交互');
+                        });
+                    }, CONFIG.AUTO_PLAY_DELAY);
+                }
+            };
+            
+            // 返回顶部模块
+            const scrollTop = {
+                init() {
+                    this.setupProgressCircle();
+                    this.bindEvents();
+                },
+                
+                setupProgressCircle() {
+                    if (elements.scrollProgressCircle) {
+                        utils.setCircleProgress(elements.scrollProgressCircle, 0);
+                    }
+                },
+                
+                bindEvents() {
+                    const throttledScroll = utils.throttle(() => this.onScroll(), 100);
+                    window.addEventListener('scroll', throttledScroll);
+                    
+                    elements.scrollTop.addEventListener('click', () => this.scrollToTop());
+                    elements.scrollTop.addEventListener('keypress', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            this.scrollToTop();
+                        }
+                    });
+                },
+                
+                onScroll() {
+                    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+                    const scrolled = (window.pageYOffset / scrollHeight) * 100;
+                    
+                    this.updateProgress(scrolled);
+                    this.toggleVisibility();
+                    this.toggleHeader();
+                },
+                
+                updateProgress(percent) {
+                    if (elements.scrollProgressCircle) {
+                        utils.setCircleProgress(elements.scrollProgressCircle, percent);
+                    }
+                },
+                
+                toggleVisibility() {
+                    if (window.pageYOffset > CONFIG.SCROLL_THRESHOLD) {
+                        elements.scrollTop.classList.add('visible');
+                    } else {
+                        elements.scrollTop.classList.remove('visible');
+                    }
+                },
+                
+                toggleHeader() {
+                    if (window.pageYOffset > 100) {
+                        elements.header.classList.add('scrolled');
+                    } else {
+                        elements.header.classList.remove('scrolled');
+                    }
+                },
+                
+                scrollToTop() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                }
+            };
+            
+            // 图片懒加载模块
+            const lazyLoad = {
+                init() {
+                    this.observer = this.createObserver();
+                    this.observeImages();
+                },
+                
+                createObserver() {
+                    return new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                this.loadImage(entry.target);
+                            }
+                        });
+                    }, {
+                        rootMargin: `${CONFIG.LAZY_LOAD_OFFSET}px`
+                    });
+                },
+                
+                observeImages() {
+                    const images = document.querySelectorAll('.lazy-img');
+                    images.forEach(img => this.observer.observe(img));
+                },
+                
+                loadImage(img) {
+                    const src = img.getAttribute('data-src') || img.src;
+                    if (!src) return;
+                    
+                    const image = new Image();
+                    image.src = src;
+                    image.onload = () => {
+                        img.src = src;
+                        img.classList.add('loaded');
+                        this.observer.unobserve(img);
+                    };
+                }
+            };
+            
+            // 滚动动画模块
+            const scrollAnimation = {
+                init() {
+                    this.checkFade();
+                    window.addEventListener('scroll', utils.throttle(() => this.checkFade(), 100));
+                },
+                
+                checkFade() {
+                    const fadeElements = document.querySelectorAll('.fade-in');
+                    const windowHeight = window.innerHeight;
+                    
+                    fadeElements.forEach(el => {
+                        const elementTop = el.getBoundingClientRect().top;
+                        if (elementTop < windowHeight - CONFIG.LAZY_LOAD_OFFSET) {
+                            el.classList.add('visible');
+                        }
+                    });
+                }
+            };
+            
+            // 倒计时模块
+            const countdown = {
+                init() {
+                    this.startDate = new Date("2024-02-03 08:00:00".replace(/-/g, "/"));
+                    this.update();
+                    setInterval(() => this.update(), 500);
+                },
+                
+                update() {
+                    const now = new Date();
+                    const diff = (now - this.startDate) / 1000;
+                    
+                    const days = Math.floor(diff / (3600 * 24));
+                    const hours = Math.floor((diff % (3600 * 24)) / 3600);
+                    const minutes = Math.floor((diff % 3600) / 60);
+                    const seconds = Math.floor(diff % 60);
+                    
+                    const elapseClock = document.getElementById('elapseClock');
+                    if (elapseClock) {
+                        elapseClock.innerHTML = `
+                            <span class="digit">${days}</span> days 
+                            <span class="digit">${this.padZero(hours)}</span> hours 
+                            <span class="digit">${this.padZero(minutes)}</span> minutes 
+                            <span class="digit">${this.padZero(seconds)}</span> seconds
+                        `;
+                    }
+                },
+                
+                padZero(num) {
+                    return num < 10 ? '0' + num : num;
+                }
+            };
+            
+            // 平滑滚动模块
+            const smoothScroll = {
+                init() {
+                    this.bindEvents();
+                },
+                
+                bindEvents() {
+                    const scrollLinks = document.querySelectorAll('.scroll');
+                    scrollLinks.forEach(link => {
+                        link.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            const targetId = link.getAttribute('href');
+                            const targetElement = document.querySelector(targetId);
+                            
+                            if (targetElement) {
+                                targetElement.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'start'
+                                });
+                            }
+                        });
+                    });
+                }
+            };
+            
+            // 初始化应用
+            function initApp() {
+                // 隐藏加载动画
+                if (elements.loader) {
+                    setTimeout(() => {
+                        elements.loader.classList.add('hidden');
+                        setTimeout(() => {
+                            elements.loader.style.display = 'none';
+                        }, 500);
+                    }, 1000);
+                }
+                
+                // 初始化各模块
+                musicPlayer.init();
+                scrollTop.init();
+                lazyLoad.init();
+                scrollAnimation.init();
+                countdown.init();
+                smoothScroll.init();
+                
+                // 添加用户交互监听
+                document.addEventListener('click', () => {
+                    if (elements.bgMusic.paused) {
+                        musicPlayer.tryAutoPlay();
+                    }
+                }, { once: true });
+            }
+            
+            // 页面加载完成后初始化
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initApp);
             } else {
-               audioEl.pause();
-               musicPlayer.classList.remove('rotate');
-               setProgress(0);
+                initApp();
             }
-         }
-         
-         // 点击音乐播放器控制音乐
-         musicPlayer.addEventListener('click', toggleMusic);
-         
-         // 音频时间更新
-         audioEl.addEventListener('timeupdate', function() {
-            if (audioEl.duration) {
-               var percent = (audioEl.currentTime / audioEl.duration) * 100;
-               setProgress(percent);
-            }
-         });
-         
-         // 音频结束时重置进度
-         audioEl.addEventListener('ended', function() {
-            setProgress(0);
-            musicPlayer.classList.remove('rotate');
-         });
-         
-         // 尝试自动播放（需要用户交互）
-         function tryAutoPlay() {
-            audioEl.play().then(function() {
-               musicPlayer.classList.add('rotate');
-               setProgress(100);
-            }).catch(function(e) {
-               console.log('自动播放被阻止，需要用户交互');
-            });
-         }
-         
-         // 页面加载后尝试自动播放
-         window.addEventListener('load', function() {
-            setTimeout(tryAutoPlay, 1000);
-         });
-         
-         // 用户交互后尝试播放
-         document.addEventListener('click', function() {
-            if (audioEl.paused) {
-               tryAutoPlay();
-            }
-         }, { once: true });
-         
-      })();
-      
-      // 返回顶部功能
-      (function() {
-         var scrollTopBtn = document.getElementById('scroll-top');
-         var scrollProgressCircle = document.querySelector('.scroll-top-progress-circle');
-         var radius = scrollProgressCircle.r.baseVal.value;
-         var circumference = 2 * Math.PI * radius;
-         
-         scrollProgressCircle.style.strokeDasharray = circumference + ' ' + circumference;
-         scrollProgressCircle.style.strokeDashoffset = circumference;
-         
-         function setScrollProgress(percent) {
-            const offset = circumference - (percent / 100) * circumference;
-            scrollProgressCircle.style.strokeDashoffset = offset;
-         }
-         
-         window.addEventListener('scroll', function() {
-            var scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-            var scrolled = (window.pageYOffset / scrollHeight) * 100;
             
-            setScrollProgress(scrolled);
-            
-            if (window.pageYOffset > 300) {
-               scrollTopBtn.classList.add('visible');
-            } else {
-               scrollTopBtn.classList.remove('visible');
-            }
-         });
-         
-         scrollTopBtn.addEventListener('click', function() {
-            window.scrollTo({
-               top: 0,
-               behavior: 'smooth'
-            });
-         });
-      })();
-      
-      // 懒加载和滚动动画
-      (function() {
-         // 懒加载图片
-         function lazyLoad() {
-            var lazyImages = document.querySelectorAll('.lazy-load');
-            
-            lazyImages.forEach(function(img) {
-               if (img.getAttribute('data-src')) {
-                  if (img.getBoundingClientRect().top <= window.innerHeight && img.getBoundingClientRect().bottom >= 0) {
-                     img.src = img.getAttribute('data-src');
-                     img.classList.add('lazy-loaded');
-                     img.removeAttribute('data-src');
-                  }
-               }
-            });
-         }
-         
-         // 滚动显示动画元素
-         function checkFade() {
-            var fadeElements = document.querySelectorAll('.fade-in');
-            
-            fadeElements.forEach(function(el) {
-               var elementTop = el.getBoundingClientRect().top;
-               var elementVisible = 150;
-               
-               if (elementTop < window.innerHeight - elementVisible) {
-                  el.classList.add('visible');
-               }
-            });
-         }
-         
-         // 初始化
-         window.addEventListener('load', function() {
-            // 将图片src转移到data-src，实现懒加载
-            var images = document.querySelectorAll('.lazy-load');
-            images.forEach(function(img) {
-               var src = img.src;
-               img.src = '';
-               img.setAttribute('data-src', src);
-            });
-            
-            // 初始检查
-            lazyLoad();
-            checkFade();
-            
-            // 隐藏加载动画
-            document.querySelector('.loader').style.display = 'none';
-         });
-         
-         // 滚动时检查
-         window.addEventListener('scroll', function() {
-            lazyLoad();
-            checkFade();
-         });
-         
-         // 调整窗口大小时检查
-         window.addEventListener('resize', function() {
-            lazyLoad();
-            checkFade();
-         });
-      })();
-      
-      // 倒计时功能
-      var together = new Date();
-      var strs = "2024-02-03 08:00:00";
-      var nowTime = new Date();
-      var together = new Date(strs.replace(/-/g, "/"));
-      timeElapse(together);
-      setInterval(function () { timeElapse(together); }, 500);
-      
-      function timeElapse(c) {
-         var e = Date();
-         var f = (Date.parse(e) - Date.parse(c)) / 1000;
-         var g = Math.floor(f / (3600 * 24)); f = f % (3600 * 24);
-         var b = Math.floor(f / 3600);
-         if (b < 10) { b = "0" + b } f = f % 3600; var d = Math.floor(f / 60);
-         if (d < 10) { d = "0" + d } f = f % 60;
-         if (f < 10) { f = "0" + f }
-         var a = '<span class="digit">' + g + '</span> days <span class="digit">' + b + '</span> hours <span class="digit">' + d + '</span> minutes <span class="digit">' + f + "</span> seconds"; $("#elapseClock").html(a)
-      }
-   </script>
+        })();
+    </script>
 </body>
 </html>
